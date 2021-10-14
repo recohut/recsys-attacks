@@ -1,0 +1,7 @@
+format: jb-book
+root: US026046_Attacks_on_Recommender_Systems
+parts:
+- caption: Tutorials
+  chapters:
+  - file: T000001
+  - file: T000002
