@@ -1,0 +1,612 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attacks on Recommender Systems &#8212; recsys-attacks</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DPADL" href="C361387_DPADL.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">recsys-attacks</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1 current">
+  <a class="reference internal" href="#">
+   Attacks on Recommender Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Attack models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="C361387_DPADL.html">
+   DPADL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="C900563_AUSH.html">
+   AUSH
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/US026046_Attacks_on_Recommender_Systems.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/recsys-attacks/main?urlpath=lab/tree/docs/US026046_Attacks_on_Recommender_Systems.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/recsys-attacks/blob/main/docs/US026046_Attacks_on_Recommender_Systems.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attacker-s-goals">
+   Attacker’s goals
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#item-promotion">
+     Item promotion
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#item-demotion">
+     Item demotion
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#target-specific-user-group">
+     Target specific user group
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ancillary-effects">
+     Ancillary effects
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attacker-s-knowledge">
+   Attacker’s knowledge
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#access-to-data">
+     Access to data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#access-to-the-neural-architecture">
+     Access to the neural architecture
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#attack-types">
+   Attack types
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#data-poisoning">
+     Data poisoning
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#profile-pollution">
+     Profile pollution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#image-spoofing">
+     Image spoofing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evasion-vs-poisoning-attacks">
+     Evasion vs poisoning attacks
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#examples">
+   Examples
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Item promotion
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#item-nuke">
+     Item nuke
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#false-reviews">
+     False reviews
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#countermeasures">
+   Countermeasures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#goal">
+     Goal
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#methods">
+     Methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#timeline">
+   Timeline
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#traditional-attack-methods">
+   Traditional attack methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#references">
+   References
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="attacks-on-recommender-systems">
+<h1>Attacks on Recommender Systems<a class="headerlink" href="#attacks-on-recommender-systems" title="Permalink to this headline">¶</a></h1>
+<p>Recommender systems play a crucial role in helping users to find their interested information in various web services such as Amazon, YouTube, and Google News. Various recommender systems, ranging from neighborhood-based, association-rule-based, matrix-factorization-based, to deep learning based, have been developed and deployed in industry. Among them, deep learning based recommender systems become increasingly popular due to their superior performance.</p>
+<p>Recommendation Systems (RS) have become an essential part of many online services. Due to its pivotal role in guiding customers towards purchasing, there is a natural motivation for unscrupulous parties to spoof RS for profits.</p>
+<p>With the advancement of recommender systems, various techniques are employed to influence the output of recommender systems to promote or demote a particular product. Attacks are the inserting of bogus data into a recommendation system. Collaborative Filtering based Recommender Systems are the most sensitive systems to attacks in which malicious users insert fake profiles into the rating database in order to bias the system’s output (these types of attacks are known as profile injection or Shilling attacks). Purpose of the attacks can be different: to push(push attack)/decrease(nuke attack) some items’ ratings by manipulating the recommender system, manipulation of the “Internet opinion” or simply to sabotage the system.</p>
+<p>The attacks technique is to create numerous fake accounts / profiles and issue high or low ratings to the “target item”.</p>
+<p>The general description of the profile of a true user and fake user are characterized as 80% unrated items and 20% rated items for the “true” profile” , whereas “fake”” profile consists of 20% unrated items and 80% rated (target items + selected items + filler items). From above description of trusted and fake user profile it is clear that to attack a recommender system, attack profile need to be designed as statistically identical to genuine profile as possible.</p>
+<div class="section" id="attacker-s-goals">
+<h2>Attacker’s goals<a class="headerlink" href="#attacker-s-goals" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="item-promotion">
+<h3>Item promotion<a class="headerlink" href="#item-promotion" title="Permalink to this headline">¶</a></h3>
+<p>Manipulate a recommender system such that the attacker-chosen target items are recommended to many users.</p>
+</div>
+<div class="section" id="item-demotion">
+<h3>Item demotion<a class="headerlink" href="#item-demotion" title="Permalink to this headline">¶</a></h3>
+<p>a.k.a. nuke attack.</p>
+</div>
+<div class="section" id="target-specific-user-group">
+<h3>Target specific user group<a class="headerlink" href="#target-specific-user-group" title="Permalink to this headline">¶</a></h3>
+<p>Target user group is the group of users that an attack aims at.</p>
+</div>
+<div class="section" id="ancillary-effects">
+<h3>Ancillary effects<a class="headerlink" href="#ancillary-effects" title="Permalink to this headline">¶</a></h3>
+<p>Ancillary effects (e.g., demoting competitors, bias the ratings of a special user groups on selected items) are also desired in the attack. Such intentions will manifest in choosing selected items.</p>
+</div>
+</div>
+<div class="section" id="attacker-s-knowledge">
+<h2>Attacker’s knowledge<a class="headerlink" href="#attacker-s-knowledge" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="access-to-data">
+<h3>Access to data<a class="headerlink" href="#access-to-data" title="Permalink to this headline">¶</a></h3>
+<p>The attack capability increase if attacker already has access to the data like user-item interaction matrix.</p>
+</div>
+<div class="section" id="access-to-the-neural-architecture">
+<h3>Access to the neural architecture<a class="headerlink" href="#access-to-the-neural-architecture" title="Permalink to this headline">¶</a></h3>
+<p>Attack capability increase if attacker has access to the neural architecture to the target recommender system.</p>
+</div>
+</div>
+<div class="section" id="attack-types">
+<h2>Attack types<a class="headerlink" href="#attack-types" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-poisoning">
+<h3>Data poisoning<a class="headerlink" href="#data-poisoning" title="Permalink to this headline">¶</a></h3>
+<p>a.k.a. fake data injection. Injects fake users with carefully crafted ratings to a recommender system. These fake data will be included in the training dataset of the target recommender system and then poisons the training process. In case of item promotion as a goal, these injected ratings would maximize the number of normal users to whom the target items are recommended.</p>
+<p>Recommendation engines are prone to performance alteration by malicious users that might be able to poison the training data with hand-engineered, and machine-learning optimized, fake user profiles (shilling profiles). An attacker’s goal is to manipulate a recommender system such that the attacker-chosen target items are recommended to many users. To achieve this goal, the attack injects fake users with carefully crafted ratings to a recommender system.</p>
+<p>According to whether data poisoning attacks are focused on a specific type of recommender system, we can divide them into two categories: algorithm-agnostic and algorithm-specific. The former (e.g., types of shilling attacks like random attacks and bandwagon attacks) does not consider the algorithm used by the recommender system and therefore often has limited effectiveness. For instance, random attacks just choose rated items at random from the whole item set for fake users, and bandwagon attacks tend to select certain items with high popularity in the dataset for fake users. The algorithm-specific data poisoning attacks are optimized to a specific type of recommender systems and have been developed for graph-based recommender systems, association-rule-based recommender systems, matrix-factorization-based recommender systems, and neighborhood-based recommender systems.</p>
+<p>Data poisoning attacks pose severe threats to the trustworthiness of recommender systems and could manipulate Internet opinions. For instance, if an attacker manipulates a news recommender system such that a particular type of news are always recommended to users, then the attacker may be able to manipulate the users’ opinions.</p>
+</div>
+<div class="section" id="profile-pollution">
+<h3>Profile pollution<a class="headerlink" href="#profile-pollution" title="Permalink to this headline">¶</a></h3>
+<p>Unlike the data poisoning attack, profile pollution attack is done at the testing time. It pollutes the historical behavior of normal users. It relies on cross-site request forgery (CSRF), and only applicable to item-to-item recommender systems.</p>
+</div>
+<div class="section" id="image-spoofing">
+<h3>Image spoofing<a class="headerlink" href="#image-spoofing" title="Permalink to this headline">¶</a></h3>
+<p>In this attack, images of a category of low recommended products (e.g., socks) are perturbed to misclassify the deep neural classifier towards the class of more recommended products (e.g., running shoes) with human-level slight images alterations.</p>
+</div>
+<div class="section" id="evasion-vs-poisoning-attacks">
+<h3>Evasion vs poisoning attacks<a class="headerlink" href="#evasion-vs-poisoning-attacks" title="Permalink to this headline">¶</a></h3>
+<p><center><figure><img src='_images/US026046_1.png'><figcaption>A schematic representation of the distinction between evasion attacks and poisoning attacks.</figcaption></figure></center></p></div>
+</div>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Item promotion<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p><center><img src='_images/US026046_2.png'></center></p>
+<p>An example of a simple promotion attack favoring the target item Item6.</p>
+</div>
+<div class="section" id="item-nuke">
+<h3>Item nuke<a class="headerlink" href="#item-nuke" title="Permalink to this headline">¶</a></h3>
+<p><center><img src='_images/US026046_3.png'></center></p>
+<p>An example of a simple nuke attack disfavoring the target item Item6.</p>
+</div>
+<div class="section" id="false-reviews">
+<h3>False reviews<a class="headerlink" href="#false-reviews" title="Permalink to this headline">¶</a></h3>
+<p>Amazon products’ reviews is distorted with thousands of fake ones. False reviews were helping unknown brands dominate searches for popular items. Hundreds of unverified five-star reviews were being posted on product pages in a single day. Many product pages also included positive reviews for completely different items.</p>
+<p><center><img src='_images/US026046_4.png'></center></p>
+</div>
+</div>
+<div class="section" id="countermeasures">
+<h2>Countermeasures<a class="headerlink" href="#countermeasures" title="Permalink to this headline">¶</a></h2>
+<p>Attack Profiles created by traditional models are effective in promoting an item, but they are highly correlated and hence can be detected by the Recommender System easily.</p>
+<p><center><img src='_images/US026046_5.png'></center></p>
+<p>True Profiles have huge Variance but low Covariance and in case of Fake Profiles it is vice versa.</p>
+<p><center><img src='_images/US026046_6.png'></center></p>
+<p>True Profiles in Green and Fake Profiles in Red Detection done using PCA.</p>
+<div class="section" id="goal">
+<h3>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h3>
+<p>Protect something (important to the recommender or its users)</p>
+<ul class="simple">
+<li><p>from someone</p></li>
+<li><p>who has goals</p></li>
+<li><p>and certain capabilities</p></li>
+</ul>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">influence</span> <span class="pre">limiter</span></code> threat model:</p>
+<ul class="simple">
+<li><p>protect recommender accuracy and neutrality</p></li>
+<li><p>from malicious users</p></li>
+<li><p>who want to push or kill products</p></li>
+<li><p>and create fake accounts</p></li>
+</ul>
+</div>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<p>To reduce this risk, various detection techniques have been proposed to detect such attacks, which use diverse features extracted from user profiles. Detection Techniques can be described as some descriptive statistics that can be used to capture some of the major characteristics that make an attacker’s profile look different from genuine user’s profile.</p>
+<ul class="simple">
+<li><p>Rating Deviation from Mean Agreement (RDMA) can identify attackers by analysing the profile’s average deviation per item or user.</p></li>
+<li><p>Weighted Deviation from Mean Agreement (WDMA) can help identify anomalies by placing a higher weight on rating deviations for sparse items.</p></li>
+<li><p>Length Variance (LengthVar) is used to capture how much the length of a given profile varies from average length in the dataset. It is particularly effective in detecting attacks with large filler sizes.</p></li>
+<li><p>Degree of Similarity with Top Neighbours (DegSim) is used to capture the average similarity of a profile’s k nearest neighbours.</p></li>
+<li><p>Increase profile injection costs (Captchas, Low‐cost manual insertion)</p></li>
+<li><p>Use statistical attack detection methods (detect groups of users who collaborate to push/nuke items, monitor development of ratings for an item: changes in average rating, in rating entrophy; use ML to detect fake profiles).</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="timeline">
+<h2>Timeline<a class="headerlink" href="#timeline" title="Permalink to this headline">¶</a></h2>
+<p><center><img src='_images/US026046_7.png'></center></p>
+</div>
+<div class="section" id="traditional-attack-methods">
+<h2>Traditional attack methods<a class="headerlink" href="#traditional-attack-methods" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Random Attack: take random values for filler items, high/low ratings for target items.</p></li>
+<li><p>Average Attack: attack profiles are generated such that the rating for filler items is the mean or average rating for that item across all the users in the database.</p></li>
+<li><p>Bandwagon attack: profiles are generated such that besides giving high ratings to the target items, it also contains only high values for selected items and random values to some filler items .</p></li>
+<li><p>Segment Attack: the segment attack model is to make inserted bots more similar to the segment market users - to push the item within the relevant community.</p></li>
+<li><p>User Shifting: In these types of attacks we basically increment or decrement all ratings for a subset of items per attack profile by a constant amount so as to reduce the similarity between attack profiles.</p></li>
+<li><p>Mixed Attack: In Mixed Attack, attack is on the same target item but that attack is produced from different attack modules.</p></li>
+<li><p>Noise Injection: This type of attack is carried out by adding some noise to ratings according to a standard normal distribution multiplied by a constant, β, which is used to govern the amount of noise to be added.</p></li>
+</ul>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Attack models</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="C361387_DPADL.html">DPADL</a></li>
+<li class="toctree-l1"><a class="reference internal" href="C900563_AUSH.html">AUSH</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ol class="simple">
+<li><p>Profile Injection Attack Detection for Securing Collaborative Recommender Systems. <a class="reference external" href="https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.219.2864&amp;rep=rep1&amp;type=pdf">Chad Williams. 2006.</a></p></li>
+<li><p>Defending Recommender Systems: Detection of Profile Injection Attacks. <a class="reference external" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.122.8693&amp;rep=rep1&amp;type=pdf">Chad A. Williams, Bamshad Mobasher, and Robin Burke. 2007.</a></p></li>
+<li><p>Detection of Profile Injection Attacks in Social Recommender Systems Using Outlier Analysis. <a class="reference external" href="http://eecs.ucf.edu/~anahita/08258235.pdf">Anahita Davoudi and Mainak Chatterjee. 2017. IEEE.</a></p></li>
+<li><p>Profile Injection Attack Detection in Recommender System. <a class="reference external" href="https://gdeepak.com/thesisme/Thesis-Ashish.pdf">Ashish Kumar (2015) Profile Injection Attack Detection in Recommender System [Master Thesis]</a></p></li>
+<li><p>Practical Data Poisoning Attack against Next-Item Recommendation. <a class="reference external" href="https://arxiv.org/abs/2004.03728">Hengtong Zhang, Yaliang Li, Bolin Ding, Jing Gao. 2020. arXiv.</a></p></li>
+<li><p>Adversarial Item Promotion: Vulnerabilities at the Core of Top-N Recommenders that Use Images to Address Cold Start. <a class="reference external" href="https://arxiv.org/abs/2006.01888">Zhuoran Liu, Martha Larson. 2020. arXiv.</a> <a class="reference external" href="https://github.com/liuzrcc/AIP">Zhuoran Liu (2021) AIP: Adversarial Item Promotion [Source code]</a></p></li>
+<li><p>Black-Box Attacks on Sequential Recommenders via Data-Free Model Extraction. <a class="reference external" href="https://arxiv.org/abs/2109.01165">Zhenrui Yue, Zhankui He, Huimin Zeng, Julian McAuley. 2021. arXiv.</a> <a class="reference external" href="https://github.com/yueeeeeeee/recsys-extraction-attack">Zhenrui (2020) PyTorch Implementation of Black-Box Attacks on Sequential Recommenders via Data-Free Model Extraction [Source code]</a></p></li>
+<li><p>Membership Inference Attacks Against Recommender Systems. <a class="reference external" href="https://arxiv.org/abs/2109.08045">Minxing Zhang, Zhaochun Ren, Zihan Wang, Pengjie Ren, Zhumin Chen, Pengfei Hu, Yang Zhang. 2021. arXiv.</a></p></li>
+<li><p>A Study of Defensive Methods to Protect Visual Recommendation Against Adversarial Manipulation of Images. <a class="reference external" href="http://sisinflab.poliba.it/publications/2021/ADDMM21/SIGIR2021_A_Study_of_Defensive_Methods_to_Protect_Visual_Recommendation_Against_Adversarial_Manipulation_of_Images.pdf">http://sisinflab.poliba.it/publications/2021/ADDMM21/SIGIR2021_A_Study_of_Defensive_Methods_to_Protect_Visual_Recommendation_Against_Adversarial_Manipulation_of_Images.pdf</a>. <a class="reference external" href="https://github.com/sisinflab/Visual-Adversarial-Recommendation">https://github.com/sisinflab/Visual-Adversarial-Recommendation</a></p></li>
+<li><p>PoisonRec: An Adaptive Data Poisoning Framework for Attacking Black-box Recommender Systems. <a class="reference external" href="https://conferences.computer.org/icde/2020/pdfs/ICDE2020-5acyuqhpJ6L9P042wmjY1p/290300a157/290300a157.pdf">Junshuai Song, Zhao Li, Zehong Hu, Yucheng Wu, Zhenpeng Li, Jian Li and Jun Gao. 2020. IEEE.</a></p></li>
+<li><p>Ready for Emerging Threats to Recommender Systems? A Graph Convolution-based Generative Shilling Attack. <a class="reference external" href="https://arxiv.org/abs/2107.10457">Fan Wu, Min Gao, Junliang Yu, Zongwei Wang, Kecheng Liu, Xu Wange. 2021. arXiv.</a></p></li>
+<li><p>A Black-Box Attack Model for Visually-Aware Recommender Systems. <a class="reference external" href="https://arxiv.org/abs/2011.02701">Rami Cohen, Oren Sar Shalom, Dietmar Jannach, Amihood Amir. 2020. arXiv.</a> <a class="reference external" href="https://github.com/vis-rs-attack/code">https://github.com/vis-rs-attack/code</a></p></li>
+<li><p>Poisoning Attack against Estimating from Pairwise Comparisons. <a class="reference external" href="https://arxiv.org/abs/2107.01854v1">Ke Ma, Qianqian Xu, Jinshan Zeng, Xiaochun Cao, and Qingming Huang. 2021. arXiv.</a> <a class="reference external" href="https://github.com/alphaprime/Poisonging_Attack_Pairwise_Comparison">alphaprime (2021) Poisoning Attack against Estimating from Pairwise Comparisons [Source code]</a></p></li>
+<li><p>Assessing Perceptual and Recommendation Mutation of Adversarially-Poisoned Visual Recommenders. <a class="reference external" href="http://sisinflab.poliba.it/publications/2020/ADMM20/CR_WDCS_NeurIPS2020_Assessing_Perceptual_and_Recommendation_Mutation_of_Adversarialli_Poisoned_Visual_Recommenders.pdf">Paper</a>. <a class="reference external" href="https://github.com/sisinflab/adversarial-recommender-systems-survey/blob/master/Perceptual-Rec-Mutation-of-Adv-VRs">Code</a></p></li>
+<li><p>Multi-Step Adversarial Perturbations on Recommender Systems Embeddings. <a class="reference external" href="https://arxiv.org/abs/2010.01329">Paper</a>. <a class="reference external" href="https://www.notion.so/9f27f90993d54016b01c8976b8c14bc5">https://anonymous.4open.science/r/9f27f909-93d5-4016-b01c-8976b8c14bc5/</a></p></li>
+<li><p>Adversarial Training Towards Robust Multimedia Recommender System. <a class="reference external" href="https://ieeexplore.ieee.org/document/8618394">Paper</a>. <a class="reference external" href="https://github.com/duxy-me/AMR">Code</a></p></li>
+<li><p>A survey on Adversarial Recommender Systems: from Attack/Defense strategies to Generative Adversarial Networks. <a class="reference external" href="https://arxiv.org/abs/2005.10322">Yashar Deldjoo, Tommaso Di Noia, Felice Antonio Merra. 2021. arXiv.</a> <a class="reference external" href="https://github.com/sisinflab/adversarial-recommender-systems-survey"><strong>https://github.com/sisinflab/adversarial-recommender-systems-survey</strong></a></p></li>
+<li><p>A Complete List of All (arXiv) Adversarial Example Papers <a class="reference external" href="https://nicholas.carlini.com/writing/2019/all-adversarial-example-papers.html">🌐Link</a></p></li>
+<li><p>Graph Adversarial Learning Literature <a class="reference external" href="https://github.com/safe-graph/graph-adversarial-learning-literature">Link</a></p></li>
+<li><p>Awesome Graph Adversarial Learning <a class="reference external" href="https://github.com/gitgiter/Graph-Adversarial-Learning">Link</a></p></li>
+<li><p>Awesome Graph Attack and Defense Papers <a class="reference external" href="https://github.com/ChandlerBang/awesome-graph-attack-papers">Link</a></p></li>
+<li><p>Segment-Focused Shilling Attacks against Recommendation Algorithms in Binary Ratings-based Recommender Systems, <em>International Journal of Hybrid Information Technology</em>, <a class="reference external" href="https://www.semanticscholar.org/paper/Segment-Focused-Shilling-Attacks-against-Algorithms-Zhang/5c7e96dcaf253f37904f91fdb6fdd6f486dba134">📝Paper</a></p></li>
+<li><p>Shilling attack models in recommender system, <em>International Conference on Inventive Computation Technologies (ICICT)</em>, <a class="reference external" href="https://ieeexplore.ieee.org/document/7824865">📝Paper</a></p></li>
+<li><p>Graph Embedding for Recommendation against Attribute Inference Attacks, <em>WWW</em>, <a class="reference external" href="https://arxiv.org/pdf/2101.12549.pdf">📝Paper</a></p></li>
+<li><p>Understanding the Effects of Adversarial Personalized Ranking Optimization Method on Recommendation Quality, <em>Arxiv</em>, 📝<a class="reference external" href="https://arxiv.org/abs/2107.13876">Paper</a></p></li>
+<li><p>GCN-Based User Representation Learning for Unifying Robust Recommendation and Fraudster Detection, <em>Arxiv</em>, <a class="reference external" href="https://arxiv.org/abs/2005.10150">📝Paper</a></p></li>
+<li><p>On Detecting Data Pollution Attacks On Recommender Systems Using Sequential GANs, <em>ICML</em>, <a class="reference external" href="https://arxiv.org/abs/2012.02509">📝Paper</a></p></li>
+<li><p>A Robust Hierarchical Graph Convolutional Network Model for Collaborative Filtering, <em>Arxiv</em>, <a class="reference external" href="https://arxiv.org/abs/2004.14734">📝Paper</a></p></li>
+<li><p>Adversarial Collaborative Auto-encoder for Top-N Recommendation, <em>Arxiv</em>, <a class="reference external" href="https://arxiv.org/abs/1808.05361">📝Paper</a></p></li>
+<li><p>Adversarial Attacks and Detection on Reinforcement Learning-Based Interactive Recommender Systems, <em>Arxiv</em>, <a class="reference external" href="https://arxiv.org/abs/2006.07934">📝Paper</a></p></li>
+<li><p>Adversarial Learning to Compare: Self-Attentive Prospective Customer Recommendation in Location based Social Networks, <em>WSDM</em>, <a class="reference external" href="https://dl.acm.org/doi/abs/10.1145/3336191.3371841">📝Paper</a></p></li>
+<li><p>Certifiable Robustness to Discrete Adversarial Perturbations for Factorization Machines, <em>SIGIR</em>, <a class="reference external" href="http://jiyang3.web.engr.illinois.edu/files/fm-rt.pdf">📝Paper</a></p></li>
+<li><p>Directional Adversarial Training for Recommender Systems, <em>ECAI</em>, <a class="reference external" href="http://ecai2020.eu/papers/300_paper.pdf">📝Paper</a></p></li>
+<li><p>Shilling Attack Detection Scheme in Collaborative Filtering Recommendation System Based on Recurrent Neural Network, <em>Future of Information and Communication Conference</em>, <a class="reference external" href="https://link.springer.com/chapter/10.1007/978-3-030-39445-5_46">📝Paper</a></p></li>
+<li><p>Learning Product Rankings Robust to Fake Users， <em>Arxiv</em>, <a class="reference external" href="https://arxiv.org/abs/2009.05138">📝Paper</a></p></li>
+<li><p>Privacy-Aware Recommendation with Private-Attribute Protection using Adversarial Learning, <em>WSDM</em>, <a class="reference external" href="https://arxiv.org/abs/1911.09872">📝Paper</a></p></li>
+<li><p>Quick and accurate attack detection in recommender systems through user attributes, <em>RecSys</em>, <a class="reference external" href="https://dl.acm.org/doi/10.1145/3298689.3347050">📝Paper</a></p></li>
+<li><p>Global and Local Differential Privacy for Collaborative Bandits, <em>RecSys</em>, <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3383313.3412254">📝Paper</a></p></li>
+<li><p>Towards Safety and Sustainability: Designing Local Recommendations for Post-pandemic World, <em>RecSys</em>, <a class="reference external" href="https://dl.acm.org/doi/pdf/10.1145/3383313.3412251">📝Paper</a></p></li>
+<li><p>GCN-Based User Representation Learning for Unifying Robust Recommendation and Fraudster Detection, <em>RecSys</em>, <a class="reference external" href="https://dl.acm.org/doi/abs/10.1145/3397271.3401165">📝Paper</a></p></li>
+<li><p>Adversarial Training Towards Robust Multimedia Recommender System, <em>TKDE</em>, <a class="reference external" href="https://graphreason.github.io/papers/35.pdf">📝Paper</a>, <a class="reference external" href="https://github.com/duxy-me/AMR">Code</a></p></li>
+<li><p>Adversarial Collaborative Neural Network for Robust Recommendation, <em>SIGIR</em>, <a class="reference external" href="https://www.researchgate.net/publication/332861957_Adversarial_Collaborative_Neural_Network_for_Robust_Recommendation">📝Paper</a></p></li>
+<li><p>Adversarial Mahalanobis Distance-based Attentive Song Recommender for Automatic Playlist Continuation, <em>SIGIR</em>, <a class="reference external" href="http://web.cs.wpi.edu/~kmlee/pubs/tran19sigir.pdf">📝Paper</a>, <a class="reference external" href="https://github.com/thanhdtran/MASR">Code</a></p></li>
+<li><p>Adversarial tensor factorization for context-aware recommendation, <em>RecSys</em>, <a class="reference external" href="https://dl.acm.org/doi/10.1145/3298689.3346987">📝Paper</a>, [Code]</p></li>
+<li><p>Adversarial Training-Based Mean Bayesian Personalized Ranking for Recommender System, <em>IEEE Access</em>, <a class="reference external" href="https://ieeexplore.ieee.org/document/8946325">📝Paper</a></p></li>
+<li><p>Securing the Deep Fraud Detector in Large-Scale E-Commerce Platform via Adversarial Machine Learning Approach，<em>WWW</em>, <a class="reference external" href="https://www.ntu.edu.sg/home/boan/papers/WWW19.pdf">📝Paper</a></p></li>
+<li><p>Shilling Attack Detection in Recommender System Using PCA and SVM, <em>Emerging technologies in data mining and information security</em>, <a class="reference external" href="https://link.springer.com/chapter/10.1007/978-981-13-1498-8_55">📝Paper</a></p></li>
+<li><p>Adversarial Personalized Ranking for Recommendation, <em>SIGIR</em>, <a class="reference external" href="https://dl.acm.org/citation.cfm?id=3209981">📝Paper</a>, <a class="reference external" href="https://github.com/hexiangnan/adversarial_personalized_ranking">Code</a></p></li>
+<li><p>A shilling attack detector based on convolutional neural network for collaborative recommender system in social aware network, <em>The Computer Journal</em>, <a class="reference external" href="https://academic.oup.com/comjnl/article-abstract/61/7/949/4835634">📝Paper</a></p></li>
+<li><p>Adversarial Sampling and Training for Semi-Supervised Information Retrieval, <em>WWW</em>, <a class="reference external" href="https://arxiv.org/abs/1506.05752">📝Paper</a></p></li>
+<li><p>Enhancing the Robustness of Neural Collaborative Filtering Systems Under Malicious Attacks, <em>IEEE Transactions on Multimedia</em>, <a class="reference external" href="https://ieeexplore.ieee.org/document/8576563">📝Paper</a></p></li>
+<li><p>An Obfuscated Attack Detection Approach for Collaborative Recommender Systems, <em>Journal of computing and information technology</em>, <a class="reference external" href="https://hrcak.srce.hr/203982">📝Paper</a></p></li>
+<li><p>Detecting Abnormal Profiles in Collaborative Filtering Recommender Systems, <em>Journal of Intelligent Information Systems</em>, <a class="reference external" href="https://link.springer.com/article/10.1007/s10844-016-0424-5">📝Paper</a></p></li>
+<li><p>Detection of Proﬁle Injection Attacks in Social Recommender Systems Using Outlier Analysis, <em>IEEE Big Data</em>, <a class="reference external" href="http://www.cs.ucf.edu/~anahita/08258235.pdf">📝Paper</a></p></li>
+<li><p>Prevention of shilling attack in recommender systems using discrete wavelet transform and support vector machine, <em>Eighth International Conference on Advanced Computing (ICoAC)</em>, <a class="reference external" href="https://ieeexplore.ieee.org/document/7951753">📝Paper</a></p></li>
+<li><p>Discovering shilling groups in a real e-commerce platform, <em>Online Information Review</em>, <a class="reference external" href="https://www.emerald.com/insight/content/doi/10.1108/OIR-03-2015-0073/full/html">📝Paper</a></p></li>
+<li><p>Shilling attack detection in collaborative filtering recommender system by PCA detection and perturbation, <em>International Conference on Wavelet Analysis and Pattern Recognition (ICWAPR)</em>, <a class="reference external" href="https://ieeexplore.ieee.org/document/7731644">📝Paper</a></p></li>
+<li><p>Re-scale AdaBoost for attack detection in collaborative filtering recommender systems, <em>KBS</em>, <a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0950705116000861">📝Paper</a></p></li>
+<li><p>SVM-TIA a shilling attack detection method based on SVM and target item analysis in recommender systems, <em>Neurocomputing</em>, <a class="reference external" href="https://www.sciencedirect.com/science/article/abs/pii/S0925231216306038">📝Paper</a></p></li>
+<li><p>Adversarial Machine Learning in Recommender Systems: State of the art and Challenges, <em>Arxiv2020</em>, <a class="reference external" href="https://arxiv.org/abs/2005.10322">📝Paper</a></p></li>
+<li><p>A Survey of Adversarial Learning on Graphs, <em>Arxiv2020</em>, <a class="reference external" href="https://arxiv.org/abs/2003.05730">📝Paper</a></p></li>
+<li><p>Adversarial Attacks and Defenses on Graphs: A Review and Empirical Study, <em>Arxiv2020</em>, <a class="reference external" href="https://arxiv.org/abs/2003.00653">📝Paper</a></p></li>
+<li><p>Shilling attacks against collaborative recommender systems: a review, <em>Artificial Intelligence Review</em>, <a class="reference external" href="https://link.springer.com/article/10.1007/s10462-018-9655-x">📝Paper</a></p></li>
+<li><p>Adversarial Attacks and Defenses in Images, Graphs and Text: A Review, <em>Arxiv2019</em>, <a class="reference external" href="https://arxiv.org/abs/1909.08072">📝Paper</a></p></li>
+<li><p>A Survey of Attacks in Collaborative Recommender Systems, <em>Journal of Computational and Theoretical Nanoscience 2019</em>, <a class="reference external" href="https://www.ingentaconnect.com/content/asp/jctn/2019/00000016/f0020005/art00029">📝Paper</a></p></li>
+<li><p>Adversarial Attack and Defense on Graph Data: A Survey, <em>Arxiv2018</em>, <a class="reference external" href="https://arxiv.org/abs/1812.10528">📝Paper</a></p></li>
+<li><p>Adversarial Machine Learning: The Case of Recommendation Systems, <em>IEEE 19th International Workshop on Signal Processing Advances in Wireless Communications (SPAWC)</em>, <a class="reference external" href="https://ieeexplore.ieee.org/abstract/document/8445767">📝Paper</a></p></li>
+<li><p>Recommender Systems: Attack Types and Strategies, <em>AAAI</em>2005, 📝<a class="reference external" href="https://www.aaai.org/Papers/AAAI/2005/AAAI05-053.pdf">Paper</a></p></li>
+<li><p>A Review of Attacks and Its Detection Attributes on Collaborative Recommender Systems, <em>IJARCS2017</em>, 📝<a class="reference external" href="http://www.ijarcs.info/index.php/Ijarcs/article/download/4550/4100">Paper</a></p></li>
+</ol>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/recsys-attacks",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+     <div id="next">
+        <a class="right-next" href="C361387_DPADL.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">DPADL</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
