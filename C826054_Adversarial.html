@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AUSH &#8212; recsys-attacks</title>
+    <title>Adversarial &#8212; recsys-attacks</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -42,6 +42,8 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -51,8 +53,8 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="TAaMR" href="C378133_TAaMR.html" />
-    <link rel="prev" title="DPADL" href="C361387_DPADL.html" />
+    <link rel="next" title="BASR" href="C999743_BASR.html" />
+    <link rel="prev" title="TAaMR" href="C378133_TAaMR.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -99,8 +101,8 @@
    DPADL
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="C900563_AUSH.html">
    AUSH
   </a>
  </li>
@@ -109,8 +111,8 @@
    TAaMR
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="C826054_Adversarial.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Adversarial
   </a>
  </li>
@@ -160,7 +162,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/C900563_AUSH.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="_sources/C826054_Adversarial.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -185,7 +187,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/recsys-attacks/main?urlpath=lab/tree/docs/C900563_AUSH.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/recsys-attacks/main?urlpath=lab/tree/docs/C826054_Adversarial.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="_static/images/logo_binder.svg"
@@ -193,7 +195,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/recsys-attacks/blob/main/docs/C900563_AUSH.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/recsys-attacks/blob/main/docs/C826054_Adversarial.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -210,19 +212,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
-            </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#performance-comparison">
-   Performance Comparison
-  </a>
- </li>
-</ul>
-
-            </nav>
         </div>
     </div>
 </div>
@@ -231,37 +220,16 @@
         
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="aush">
-<h1>AUSH<a class="headerlink" href="#aush" title="Permalink to this headline">¶</a></h1>
-<blockquote>
-<div><p>Attacking Recommender Systems with Augmented User Profiles</p>
-</div></blockquote>
-<p>AUSH is capable of tailoring attacks against RS according to budget and complex attack goals, such as targeting a specific user group. Specifically, the generator acts like an “attacker” and generates fake user profiles by augmenting the “template” of existing real user profiles. Moreover, the generator is able to achieve secondary attack goals by incorporating a shilling loss. On the other hand, the discriminator module performs like a “defender”. It distinguishes fake user profiles from real user profiles and provides guidance to train the generator to generate undetectable fake user profiles. Each of the generator and the discriminator strikes to enhance itself to beat the other one at every round of the minimax competition.</p>
-<p>We divide the items in a fake user profile into one target item (i.e., the attacker wants to assign it a malicious rating), a number of filler items (i.e., a group of randomly sampled items which have been rated by the real user and will be used to obstruct detection of the attack), a number of selected items (i.e., a group of human-selected items for special treatment to form the characteristics of the attack), and unrated items (i.e., the rest of the items in the RS). Selected items are the same across all fake user profiles, while each fake user profile has its own filler items.</p>
-<p>Attacking RS is costly. As such, in designing a practical attack model against RS, we have to take into account the following attack budget and goal:</p>
-<ul class="simple">
-<li><p>Attack budget: we consider two factors</p>
-<ul>
-<li><p>Attack size is the number of fake user profiles</p></li>
-<li><p>Profile size is the number of non-zero ratings. The larger the attack size / profile size is, the more effective and expensive the attack could be.</p></li>
-</ul>
-</li>
-<li><p>Attack goal: the goal an adversarial party wants to achieve could be complex and we mainly consider the following aspects</p>
-<ul>
-<li><p>Attack type indicates whether it is a push attack (i.e., assign a maximal rating on target item to promote it) or a nuke attack (i.e., assign a minimal rating on target item to demote it). Since the two types are similar and can be exchanged (i.e., change a maximal rating to a minimal rating), we consider push attacks in the sequel for simplicity.</p></li>
-<li><p>Target user group is the group of users that an attack aims at.</p></li>
-<li><p>Ancillary effects (e.g., demoting competitors, bias the ratings of a special user groups on selected items) are also desired in the attack. Such intentions will manifest in choosing selected items.</p></li>
-</ul>
-</li>
-</ul>
-<p><center><figure><img src='_images/C900563_1.png'><figcaption>Pipeline of AUSH. We use binary ratings for illustration, though AUSH can handle a five-point scale. Red and blue indicate a high rating and a low rating, respectively.</figcaption></figure></center></p>
-<p><center><figure><img src='_images/C900563_2.png'><figcaption>AUSH algorithm.</figcaption></figure></center></p>
-<div class="section" id="performance-comparison">
-<h2>Performance Comparison<a class="headerlink" href="#performance-comparison" title="Permalink to this headline">¶</a></h2>
-<p><center><figure><img src='_images/C900563_3.png'><figcaption>Attack performance against NMF. Best results are marked in bold, and AUSH results are also marked in bold if they are the second best in each category.</figcaption></figure></center></p>
-<p><center><figure><img src='_images/C900563_4.png'><figcaption>Attack performance against NNMF. Best results are marked in bold, and AUSH results are also marked in bold if they are the second best in each category.</figcaption></figure></center></p>
-<p><center><figure><img src='_images/C900563_5.png'><figcaption>Attack performance against U-Autoencoder. Best results are marked in bold, and AUSH results are also marked in bold if they are the second best in each category</figcaption></figure></center></p>
-<p><center><figure><img src='_images/C900563_6.png'><figcaption>Attack performance against I-Autoencoder. Best results are marked in bold, and AUSH results are also marked in bold if they are the second best in each category.</figcaption></figure></center></p></div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="adversarial">
+<h1>Adversarial<a class="headerlink" href="#adversarial" title="Permalink to this headline">¶</a></h1>
+<p>The objective is to test the robustness of a trained model (target recommender model) against injection attack. We will select a random item(s) (or can ask the user to pick the item) and use the adversarial injection model to learn the fake data. Then we will inject this fake data in the logs of target recommender system. Once the target recommender will get re-trained, we will measure how often it is recommending our target item. Less is better.</p>
+<p><center><img src='_images/C826054_1.png'></center></p>
+<p>The attacker will learn fake users through a surrogate model and inject their rating profiles to the training set of the victim model. The attacker will achieve their malicious goal after the victim model consumes these fake users. This suggests that the attack happens at training time of the victim model, instead of test time.</p>
+<p>The author of this paper formulated the adversarial injection attack as a bi-level optimization problem.</p>
+<p><center><img src='_images/C826054_2.png'></center></p>
+<p>The objective will be minimized if normal user’s prediction on target item k is greater than other items, so that the malicious goal of promoting target item will be achieved, as a result.</p>
+<p><center><img src='_images/C826054_3.png'></center></p>
+<p>At each iteration t ∈ {1, …,T } for updating fake data, we first retrain the surrogate model by performing parameter updates for L iterations (line 7). Then we update fake data (line 10) with Projected Gradient Descent (PGD), with ProjΛ(·) as the projection operator that projects the fake data onto feasible set (i.e., <span class="math notranslate nohighlight">\(\hat{x}_{vi}\)</span> ∈ {0, 1} in our case). After the final iteration T where fake data <span class="math notranslate nohighlight">\(\hat{X}^{(T)}\)</span> is learned to minimize <span class="math notranslate nohighlight">\(L_{adv}\)</span>, they are able to attack the surrogate model, and we hope they can also attack the target (victim) model in a similar way: once trained on the poisoned dataset, it will cause a small adversarial loss <span class="math notranslate nohighlight">\(L_{adv}\)</span>.</p>
 </div>
 
     <script type="text/x-thebe-config">
@@ -294,19 +262,19 @@
 <div class='prev-next-bottom'>
     
     <div id="prev">
-        <a class="left-prev" href="C361387_DPADL.html" title="previous page">
+        <a class="left-prev" href="C378133_TAaMR.html" title="previous page">
             <i class="prevnext-label fas fa-angle-left"></i>
             <div class="prevnext-info">
                 <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">DPADL</p>
+                <p class="prevnext-title">TAaMR</p>
             </div>
         </a>
     </div>
      <div id="next">
-        <a class="right-next" href="C378133_TAaMR.html" title="next page">
+        <a class="right-next" href="C999743_BASR.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">TAaMR</p>
+                <p class="prevnext-title">BASR</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>
