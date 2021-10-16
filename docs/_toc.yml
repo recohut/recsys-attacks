@@ -1,7 +1,7 @@
 format: jb-book
 root: US026046_Attacks_on_Recommender_Systems
 parts:
-- caption: Tutorials
+- caption: Attack models
   chapters:
-  - file: T000001
-  - file: T000002
+  - file: C361387_DPADL
+  - file: C900563_AUSH
