@@ -1,0 +1,973 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Poisoning Attack using LFM and ItemAE on Synthetic Dataset &#8212; recsys-attacks</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Black-box Attack API" href="T697871_Black_box_Attack_API.html" />
+    <link rel="prev" title="Data Poisoning Attacks on Factorization-Based Collaborative Filtering" href="T081831_Data_Poisoning_Attacks_on_Factorization_Based_Collaborative_Filtering.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">recsys-attacks</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="US026046_Attacks_on_Recommender_Systems.html">
+   Attacks on Recommender Systems
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Attack models
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="C361387_DPADL.html">
+   DPADL
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="C900563_AUSH.html">
+   AUSH
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="C378133_TAaMR.html">
+   TAaMR
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="C826054_Adversarial.html">
+   Adversarial
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="C999743_BASR.html">
+   BASR
+  </a>
+ </li>
+</ul>
+<p class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="T006054_SDLib.html">
+   SDLib
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T865035_Simulating_Data_Poisoning_Attacks_against_Twitter_Recommender.html">
+   Simulating Data Poisoning Attacks against Twitter Recommender
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T081831_Data_Poisoning_Attacks_on_Factorization_Based_Collaborative_Filtering.html">
+   Data Poisoning Attacks on Factorization-Based Collaborative Filtering
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Data Poisoning Attack using LFM and ItemAE on Synthetic Dataset
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T697871_Black_box_Attack_API.html">
+   Black-box Attack API
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T355514_Black_box_Attack_on_Sequential_Recs.html">
+   Black-box Attack on Sequential Recs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="T102448_Adversarial_Learning_for_Recommendation.html">
+   Adversarial Training (Regularization) on a Recommender System
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/T711285_Data_Poisoning_Attack_using_LFM_and_ItemAE_on_Synthetic_Dataset.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/sparsh-ai/recsys-attacks/main?urlpath=lab/tree/docs/T711285_Data_Poisoning_Attack_using_LFM_and_ItemAE_on_Synthetic_Dataset.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/sparsh-ai/recsys-attacks/blob/main/docs/T711285_Data_Poisoning_Attack_using_LFM_and_ItemAE_on_Synthetic_Dataset.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data">
+   Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#synthetic-toy-dataset">
+     Synthetic Toy Dataset
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#models">
+   Models
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#lfm">
+     LFM
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#itemae">
+     ItemAE
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#model-factory">
+     Model factory
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#utils">
+   Utils
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trainer">
+   Trainer
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loss-functions">
+     Loss functions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluation-function">
+     Evaluation function
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training-hyperparams">
+     Training Hyperparams
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#training">
+     Training
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualization">
+   Visualization
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="tex2jax_ignore mathjax_ignore section" id="data-poisoning-attack-using-lfm-and-itemae-on-synthetic-dataset">
+<h1>Data Poisoning Attack using LFM and ItemAE on Synthetic Dataset<a class="headerlink" href="#data-poisoning-attack-using-lfm-and-itemae-on-synthetic-dataset" title="Permalink to this headline">¶</a></h1>
+<p>Our goal is to promote an item of our choice. So we will poison a recommender model (victim) by feeding malicious data of fake users. So when the victim model will re-train itself on real+fake data next time, it will recommender our target time often.</p>
+<p>This fake data is carefully crafted by adversarial training.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>!pip install higher
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="kn">import</span> <span class="nn">torch.nn.functional</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
+
+<span class="kn">import</span> <span class="nn">higher</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="synthetic-toy-dataset">
+<h3>Synthetic Toy Dataset<a class="headerlink" href="#synthetic-toy-dataset" title="Permalink to this headline">¶</a></h3>
+<p>We synthesize a toy datset that is more controllable. Specifically, each data point in <span class="math notranslate nohighlight">\(X\)</span> is generated by <span class="math notranslate nohighlight">\(x=\mu \nu^\top\)</span>, where both <span class="math notranslate nohighlight">\(\nu \in \mathcal{R}^d\)</span> and <span class="math notranslate nohighlight">\(\mu\in \mathcal{R}^d\)</span> are sampled from <span class="math notranslate nohighlight">\(\mathcal{N}_d(\mathbf{0}, \mathbf{I})\)</span> with <span class="math notranslate nohighlight">\(d&lt;&lt;\min(|U|, |V|)\)</span>. By generating data point for <span class="math notranslate nohighlight">\(\forall x \in X\)</span>, the synthesized dataset is presumably to have low-rank, similar to other real-world recommendation datsets. Lastly, we binarize <span class="math notranslate nohighlight">\(X\)</span> to transform it into implicit feedback data by setting a threshold <span class="math notranslate nohighlight">\(\epsilon\)</span>. By controlling the value of <span class="math notranslate nohighlight">\((|U|,V|,d,\epsilon)\)</span>, we are able to have arbitrary-size synthetic datasets with different ranks and sparsity levels.</p>
+<p>Define some hyperparameters for synthetic data generation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">n_users</span> <span class="o">=</span> <span class="mi">1000</span>        <span class="c1"># number of total users (normal and fake), |U| + |V|</span>
+<span class="n">n_items</span> <span class="o">=</span> <span class="mi">300</span>         <span class="c1"># number of items |I|</span>
+<span class="n">n_fakes</span> <span class="o">=</span> <span class="mi">100</span>         <span class="c1"># number of fake user |V|</span>
+
+<span class="n">data_ranks</span> <span class="o">=</span> <span class="mi">20</span>       <span class="c1"># synthetic data rank d</span>
+<span class="n">binary_threshold</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># threshold epsilon</span>
+
+<span class="c1"># Without loss of generality, let&#39;s suppose we&#39;re targeting the item `i0`.</span>
+<span class="c1"># i.e., we want to push `i0` to true users&#39; recommendation lists.</span>
+<span class="n">target_item</span> <span class="o">=</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Generate the synthetic data following the above procedure</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dense_data_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_users</span><span class="p">,</span> <span class="n">data_ranks</span><span class="p">),</span>
+                        <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">data_ranks</span><span class="p">,</span> <span class="n">n_items</span><span class="p">))</span>
+<span class="n">data_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">dense_data_x</span><span class="p">)</span>
+<span class="n">test_items</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">n_users</span> <span class="o">-</span> <span class="n">n_fakes</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int64</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dense_data_x</span><span class="p">):</span>
+    <span class="c1"># Apply thresholding to make synthetic data for implicit feedback.</span>
+    <span class="c1"># it means the current user has interacted (views/bought/consumed etc.) with items</span>
+    <span class="c1"># whose value is 1 and vica-versa</span>
+    <span class="n">x_binary</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">binary_threshold</span><span class="p">,</span>
+                           <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    
+    <span class="c1"># For the true users, sample 1 item per user as the test item.</span>
+    <span class="n">nnz_inds</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nonzero</span><span class="p">(</span><span class="n">x_binary</span><span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">rand_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">nnz_inds</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">test_item</span> <span class="o">=</span> <span class="n">nnz_inds</span><span class="p">[</span><span class="n">rand_ind</span><span class="p">]</span>
+    <span class="c1"># Also we have to remove it from training data.</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">n_users</span> <span class="o">-</span> <span class="n">n_fakes</span><span class="p">):</span>
+        <span class="n">x_binary</span><span class="p">[</span><span class="n">test_item</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">test_items</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">test_item</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+    <span class="n">data_x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_binary</span>
+
+<span class="n">target_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span>
+<span class="n">target_x</span><span class="p">[:,</span> <span class="n">target_item</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;data sparsity: </span><span class="si">%.2f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">data_x</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">item</span><span class="p">()</span> <span class="o">/</span> <span class="n">data_x</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">target_x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+        [1., 0., 0.,  ..., 0., 0., 1.],
+        [1., 0., 0.,  ..., 0., 1., 0.],
+        ...,
+        [0., 0., 1.,  ..., 0., 1., 0.],
+        [1., 1., 0.,  ..., 0., 0., 0.],
+        [0., 0., 0.,  ..., 0., 0., 0.]])
+data sparsity: 0.87
+tensor([[1., 0., 0.,  ..., 0., 0., 0.],
+        [1., 0., 0.,  ..., 0., 0., 0.],
+        [1., 0., 0.,  ..., 0., 0., 0.],
+        ...,
+        [1., 0., 0.,  ..., 0., 0., 0.],
+        [1., 0., 0.,  ..., 0., 0., 0.],
+        [1., 0., 0.,  ..., 0., 0., 0.]])
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="models">
+<h2>Models<a class="headerlink" href="#models" title="Permalink to this headline">¶</a></h2>
+<p>We have to learn 2 functions - A fake data generator and a recommender. We will first generate fake data of dimension a x b where a are no. of fake users and b are no. of items in the catalog.</p>
+<p>After generating the fake user’s data, we will train the recommender on real+fake data and evaluate its performance. i.e. How good it is in recommending our target item to real users.</p>
+<p>On the basis of this loss, we will update the gradients of both the functions/models (data generator and recommender).</p>
+<p><strong>Solve the bi-level optimization problem to learn fake data for adversearial goal</strong></p>
+<p>Given a well-trained surrogate model that is under-attack and a set of fake users <span class="math notranslate nohighlight">\(V = \{v_1, v_2,..,v_{|V|}\}\)</span>, the fake data <span class="math notranslate nohighlight">\(\widehat{X} \in \{0,1\}^{|V| \times |I|}\)</span> will be learned to optimize an adversarial objective function <span class="math notranslate nohighlight">\({\mathcal{L}_{\rm{adv}}}\)</span>:
+$<span class="math notranslate nohighlight">\(
+\min_{\widehat{X}}{\mathcal{L}_{\rm{adv}}}(R_{\theta^*}),
+\)</span><span class="math notranslate nohighlight">\(
+\)</span><span class="math notranslate nohighlight">\(
+\textrm{subject to}\quad \theta^* = \text{argmin}_\theta \big ( {\mathcal{L}_{\rm{train}}}(X, R_{\theta}) + {\mathcal{L}_{\rm{train}}}(\widehat{X}, \widehat{R}_{\theta}) \big ),
+\)</span>$</p>
+<p>The inner objective shows that after fake data <span class="math notranslate nohighlight">\(\widehat{X}\)</span> are injected, the surrogate model will first consume them (i.e., train from scratch with the poisoned dataset), we then obtain the trained model parameters <span class="math notranslate nohighlight">\(\theta^*\)</span>.
+The outer objective shows that after fake data are consumed, we can achieve the malicious goal defined on normal user’s predictions <span class="math notranslate nohighlight">\(R_{\theta^*}\)</span>.</p>
+<div class="section" id="lfm">
+<h3>LFM<a class="headerlink" href="#lfm" title="Permalink to this headline">¶</a></h3>
+<p>Standard Latent Factor Model</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LatentFactorModel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_users</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">LatentFactorModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_users</span> <span class="o">=</span> <span class="n">n_users</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_items</span> <span class="o">=</span> <span class="n">n_items</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dim</span> <span class="o">=</span> <span class="n">hidden_dim</span>
+
+        <span class="c1"># Random-normal initialization of item embedding matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">V</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">n_items</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="c1"># Random-normal initialization of user embedding matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">U</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">n_users</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">]),</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">params</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ParameterList</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">item_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">item_id</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">user_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">[[</span><span class="n">user_id</span><span class="p">]],</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">item_id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">U</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">V</span><span class="p">[[</span><span class="n">item_id</span><span class="p">]]</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="itemae">
+<h3>ItemAE<a class="headerlink" href="#itemae" title="Permalink to this headline">¶</a></h3>
+<p>Approximate the adversarial gradient with parial derivatives.</p>
+<p>this method uses itembased autoencoder optimized with Adam as surrogate model. The special design of ItemAE allows us to obtain non-zero partial derivatives. Thus, when accumulating adversarial gradients, we unroll either 0 steps (using only partial derivative) or 10% of total training steps.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ItemAE</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">hidden_dims</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ItemAE</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_dim</span><span class="p">]</span> <span class="o">+</span> <span class="n">hidden_dims</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_dims</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">q_dims</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">q_layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span><span class="p">)</span> <span class="k">for</span>
+                                       <span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span> <span class="ow">in</span>
+                                       <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_dims</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">q_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">:])])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_layers</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">([</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span><span class="p">)</span> <span class="k">for</span>
+                                       <span class="n">d_in</span><span class="p">,</span> <span class="n">d_out</span> <span class="ow">in</span>
+                                       <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_dims</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">p_dims</span><span class="p">[</span><span class="mi">1</span><span class="p">:])])</span>
+
+    <span class="k">def</span> <span class="nf">encode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="nb">input</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">q_layers</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">selu</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
+
+    <span class="k">def</span> <span class="nf">decode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">z</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">layer</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_layers</span><span class="p">):</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">i</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p_layers</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">selu</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="n">z</span><span class="p">)</span><span class="o">.</span><span class="n">t</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="model-factory">
+<h3>Model factory<a class="headerlink" href="#model-factory" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_model</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;LFM&quot;</span><span class="p">):</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">inner_opt</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;LFM&quot;</span><span class="p">:</span>
+        <span class="n">hidden_dim</span> <span class="o">=</span> <span class="mi">16</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">LatentFactorModel</span><span class="p">(</span><span class="n">n_users</span><span class="p">,</span> <span class="n">n_items</span><span class="p">,</span> <span class="n">hidden_dim</span><span class="p">)</span>
+        <span class="n">inner_opt</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;ItemAE&quot;</span><span class="p">:</span>
+        <span class="n">hidden_dims</span> <span class="o">=</span> <span class="p">[</span><span class="mi">64</span><span class="p">,</span> <span class="mi">32</span><span class="p">]</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">ItemAE</span><span class="p">(</span><span class="n">n_users</span><span class="p">,</span> <span class="n">hidden_dims</span><span class="p">)</span>
+        <span class="n">inner_opt</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">1e-2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">inner_opt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">set_random_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">use_cuda</span><span class="p">):</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">use_cuda</span><span class="p">:</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">deterministic</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">project_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">result</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">,</span>
+                       <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">result</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="trainer">
+<h2>Trainer<a class="headerlink" href="#trainer" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="loss-functions">
+<h3>Loss functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h3>
+<p>We use the softmax loss as the adversarial objective <span class="math notranslate nohighlight">\(\mathcal{L}_{\rm{adv}}\)</span> and the weighted MSE as the surrogate training objective <span class="math notranslate nohighlight">\(\mathcal{L}_{\rm{train}}\)</span>, one can also define &amp; explore other objectives.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">softmax_cross_entropy_with_logits</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">targets</span><span class="p">):</span>
+    <span class="n">log_probs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">log_softmax</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">log_probs</span> <span class="o">*</span> <span class="n">targets</span>
+    <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">mse_loss</span><span class="p">(</span><span class="n">logits</span><span class="p">,</span> <span class="n">targets</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">logits</span><span class="p">)</span>
+    <span class="n">weights</span><span class="p">[</span><span class="n">targets</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weight</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">weights</span> <span class="o">*</span> <span class="p">(</span><span class="n">targets</span> <span class="o">-</span> <span class="n">logits</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="n">loss</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="evaluation-function">
+<h3>Evaluation function<a class="headerlink" href="#evaluation-function" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">preds</span><span class="p">,</span> <span class="n">test_items</span><span class="p">,</span> <span class="n">target_item</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cutoff</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">test_rankings</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">target_rankings</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">filtered_preds</span> <span class="o">=</span> <span class="n">preds</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="n">filtered_preds</span><span class="o">.</span><span class="n">require_grad</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">filtered_preds</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data_x</span><span class="p">)]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">rankings</span> <span class="o">=</span> <span class="n">filtered_preds</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">descending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">user</span><span class="p">,</span> <span class="n">test_item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">test_items</span><span class="p">):</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="n">rankings</span><span class="p">[</span><span class="n">user</span><span class="p">]</span>
+        <span class="n">test_rank</span> <span class="o">=</span> <span class="n">rank</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">test_item</span><span class="p">)</span>
+        <span class="n">test_rankings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">test_rank</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">target_item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">target_rank</span> <span class="o">=</span> <span class="n">rank</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">target_item</span><span class="p">)</span>
+            <span class="n">target_rankings</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">target_rank</span><span class="p">)</span>
+    <span class="n">test_rankings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">test_rankings</span><span class="p">)</span>
+    <span class="n">target_rankings</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">target_rankings</span><span class="p">)</span>
+
+    <span class="n">mean_hr_test</span> <span class="o">=</span> <span class="p">(</span><span class="n">test_rankings</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">mean_rank_test</span> <span class="o">=</span> <span class="n">test_rankings</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;hr@</span><span class="si">%d</span><span class="s2">_test&quot;</span> <span class="o">%</span> <span class="n">cutoff</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mean_hr_test</span><span class="p">,</span>
+              <span class="s2">&quot;mean_rank_test&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mean_rank_test</span><span class="p">}</span>
+    <span class="k">if</span> <span class="n">target_item</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mean_hr_target</span> <span class="o">=</span> <span class="p">(</span><span class="n">target_rankings</span> <span class="o">&lt;</span> <span class="n">cutoff</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">mean_rank_target</span> <span class="o">=</span> <span class="n">target_rankings</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;hr@</span><span class="si">%d</span><span class="s2">_target&quot;</span> <span class="o">%</span> <span class="n">cutoff</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mean_hr_target</span>
+        <span class="n">result</span><span class="p">[</span><span class="s2">&quot;mean_rank_target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">mean_rank_target</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="training-hyperparams">
+<h3>Training Hyperparams<a class="headerlink" href="#training-hyperparams" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">seed</span> <span class="o">=</span> <span class="mi">1234</span>           <span class="c1"># random seed</span>
+<span class="n">use_cuda</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># whether to use GPU</span>
+<span class="n">verbose</span> <span class="o">=</span> <span class="kc">False</span>       <span class="c1"># whether to output full log</span>
+
+<span class="n">n_inner_iter</span> <span class="o">=</span> <span class="mi">100</span>    <span class="c1"># epochs for inner optimization</span>
+<span class="n">n_outer_iter</span> <span class="o">=</span> <span class="mi">50</span>     <span class="c1"># epochs for outer optimization</span>
+<span class="n">unroll_epochs</span> <span class="o">=</span> <span class="mi">100</span>   <span class="c1"># how many epochs to unroll</span>
+
+<span class="c1"># Learning rate and momentum for outer objective optimizer, make sure</span>
+<span class="c1"># they are carefully tuned for different surrogate and unroll_epochs.</span>
+<span class="n">outer_lr</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">outer_momentum</span> <span class="o">=</span> <span class="mf">0.99</span>
+
+<span class="n">surrogate</span> <span class="o">=</span> <span class="s2">&quot;LFM&quot;</span>    <span class="c1"># which surrogate model to use (LFM or ItemAE)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="training">
+<h3>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cuda&quot;</span> <span class="k">if</span> <span class="n">use_cuda</span> <span class="k">else</span> <span class="s2">&quot;cpu&quot;</span>
+<span class="n">set_random_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">use_cuda</span><span class="p">)</span>
+
+<span class="n">inner_loss_func</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span><span class="n">mse_loss</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">outer_loss_func</span> <span class="o">=</span> <span class="n">softmax_cross_entropy_with_logits</span>
+
+<span class="n">data_x</span><span class="o">.</span><span class="n">requires_grad_</span><span class="p">()</span>
+<span class="n">outer_opt</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">([</span><span class="n">data_x</span><span class="p">],</span> <span class="n">lr</span><span class="o">=</span><span class="n">outer_lr</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="n">outer_momentum</span><span class="p">)</span>
+
+<span class="n">data_x</span> <span class="o">=</span> <span class="n">data_x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">target_x</span> <span class="o">=</span> <span class="n">target_x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;adv_loss&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;hr@10_target&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;hr@10_test&quot;</span><span class="p">:</span> <span class="p">[]}</span>
+
+<span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_outer_iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">,</span> <span class="n">inner_opt</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">(</span><span class="n">surrogate</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    
+    <span class="n">outer_opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>    
+    <span class="c1">### Begin: Inner-level optimization</span>
+    <span class="c1"># Train a few steps without tracking gradients.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_inner_iter</span> <span class="o">-</span> <span class="n">unroll_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+        <span class="n">preds</span> <span class="o">=</span> <span class="n">model</span><span class="p">()</span> <span class="k">if</span> <span class="n">surrogate</span> <span class="o">==</span> <span class="s2">&quot;LFM&quot;</span> <span class="k">else</span> <span class="n">model</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span>
+        <span class="n">inner_loss</span> <span class="o">=</span> <span class="n">inner_loss_func</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">data_x</span><span class="p">)</span>
+        <span class="n">inner_opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">inner_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="n">inner_opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1"># Evaluate recommendation performance along training steps.</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">test_items</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inner epoch: </span><span class="si">%d</span><span class="s2">, loss: </span><span class="si">%.2f</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                <span class="n">i</span><span class="p">,</span> <span class="n">inner_loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
+    <span class="c1"># Start using tracking gradients.</span>
+    <span class="k">with</span> <span class="n">higher</span><span class="o">.</span><span class="n">innerloop_ctx</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">inner_opt</span><span class="p">)</span> <span class="k">as</span> <span class="p">(</span><span class="n">fmodel</span><span class="p">,</span> <span class="n">diffopt</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Switching to higher mode at epoch </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_inner_iter</span> <span class="o">-</span> <span class="n">unroll_epochs</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_inner_iter</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">fmodel</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+            <span class="n">preds</span> <span class="o">=</span> <span class="n">fmodel</span><span class="p">()</span> <span class="k">if</span> <span class="n">surrogate</span> <span class="o">==</span> <span class="s2">&quot;LFM&quot;</span> <span class="k">else</span> <span class="n">fmodel</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span>
+            <span class="n">inner_loss</span> <span class="o">=</span> <span class="n">inner_loss_func</span><span class="p">(</span><span class="n">preds</span><span class="p">,</span> <span class="n">data_x</span><span class="p">)</span>
+            <span class="n">diffopt</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">inner_loss</span><span class="p">)</span>
+            <span class="c1"># Evaluate recommendation performance along training steps.</span>
+            <span class="n">fmodel</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">test_items</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inner epoch: </span><span class="si">%d</span><span class="s2">, loss: </span><span class="si">%.2f</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+                    <span class="n">i</span><span class="p">,</span> <span class="n">inner_loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
+    <span class="c1">### End: Inner-level optimization</span>
+    
+    <span class="c1">### Start: outer-level optimization</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">fmodel</span><span class="p">()</span> <span class="k">if</span> <span class="n">surrogate</span> <span class="o">==</span> <span class="s2">&quot;LFM&quot;</span> <span class="k">else</span> <span class="n">fmodel</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span>
+    <span class="n">outer_loss</span> <span class="o">=</span> <span class="n">outer_loss_func</span><span class="p">(</span><span class="n">preds</span><span class="p">[:</span><span class="o">-</span><span class="n">n_fakes</span><span class="p">,</span> <span class="p">],</span>
+                                 <span class="n">target_x</span><span class="p">[:</span><span class="o">-</span><span class="n">n_fakes</span><span class="p">,</span> <span class="p">])</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;adv_loss&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%.4f</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outer_loss</span><span class="o">.</span><span class="n">item</span><span class="p">()))</span>
+    <span class="n">grad_x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">autograd</span><span class="o">.</span><span class="n">grad</span><span class="p">(</span><span class="n">outer_loss</span><span class="p">,</span> <span class="n">data_x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Only change the fake data by setting normal data gradient to 0.</span>
+    <span class="n">grad_x</span><span class="p">[:</span><span class="o">-</span><span class="n">n_fakes</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">if</span> <span class="n">data_x</span><span class="o">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data_x</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">grad_x</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data_x</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">grad_x</span>
+    <span class="n">outer_opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="c1"># Project fake data onto allowable area.</span>
+    <span class="n">data_x</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">project_data</span><span class="p">(</span><span class="n">data_x</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+    <span class="c1">### End: outer-level optimization</span>
+    
+    <span class="c1"># Evaluate the recommendation performance and attack performance.</span>
+    <span class="n">fmodel</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+    <span class="n">preds</span> <span class="o">=</span> <span class="n">fmodel</span><span class="p">()</span> <span class="k">if</span> <span class="n">surrogate</span> <span class="o">==</span> <span class="s2">&quot;LFM&quot;</span> <span class="k">else</span> <span class="n">fmodel</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">preds</span><span class="o">.</span><span class="n">detach</span><span class="p">(),</span> <span class="n">test_items</span><span class="p">,</span> <span class="n">target_item</span><span class="p">)</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;hr@10_target&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;hr@10_target&quot;</span><span class="p">]))</span>
+    <span class="n">results</span><span class="p">[</span><span class="s2">&quot;hr@10_test&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;hr@10_test&quot;</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;outer epoch: </span><span class="si">%d</span><span class="s2">, loss: </span><span class="si">%.2f</span><span class="s2">, </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span>
+        <span class="n">j</span><span class="p">,</span> <span class="n">outer_loss</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>outer epoch: 1, loss: 5117.81, {&#39;hr@10_test&#39;: &#39;0.4711&#39;, &#39;mean_rank_test&#39;: &#39;22.9244&#39;, &#39;hr@10_target&#39;: &#39;0.0489&#39;, &#39;mean_rank_target&#39;: &#39;141.1000&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 2, loss: 4830.87, {&#39;hr@10_test&#39;: &#39;0.5011&#39;, &#39;mean_rank_test&#39;: &#39;22.3300&#39;, &#39;hr@10_target&#39;: &#39;0.2556&#39;, &#39;mean_rank_target&#39;: &#39;68.1078&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 3, loss: 4815.57, {&#39;hr@10_test&#39;: &#39;0.4800&#39;, &#39;mean_rank_test&#39;: &#39;23.1611&#39;, &#39;hr@10_target&#39;: &#39;0.2744&#39;, &#39;mean_rank_target&#39;: &#39;65.2478&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 4, loss: 4796.25, {&#39;hr@10_test&#39;: &#39;0.5189&#39;, &#39;mean_rank_test&#39;: &#39;21.8844&#39;, &#39;hr@10_target&#39;: &#39;0.3033&#39;, &#39;mean_rank_target&#39;: &#39;62.0256&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 5, loss: 4763.14, {&#39;hr@10_test&#39;: &#39;0.5122&#39;, &#39;mean_rank_test&#39;: &#39;21.9978&#39;, &#39;hr@10_target&#39;: &#39;0.4033&#39;, &#39;mean_rank_target&#39;: &#39;57.4456&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 6, loss: 4745.85, {&#39;hr@10_test&#39;: &#39;0.4778&#39;, &#39;mean_rank_test&#39;: &#39;22.6122&#39;, &#39;hr@10_target&#39;: &#39;0.4456&#39;, &#39;mean_rank_target&#39;: &#39;55.5444&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 7, loss: 4741.51, {&#39;hr@10_test&#39;: &#39;0.4844&#39;, &#39;mean_rank_test&#39;: &#39;22.8967&#39;, &#39;hr@10_target&#39;: &#39;0.4744&#39;, &#39;mean_rank_target&#39;: &#39;55.2322&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 8, loss: 4730.58, {&#39;hr@10_test&#39;: &#39;0.4789&#39;, &#39;mean_rank_test&#39;: &#39;22.6422&#39;, &#39;hr@10_target&#39;: &#39;0.4933&#39;, &#39;mean_rank_target&#39;: &#39;54.5433&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 9, loss: 4723.08, {&#39;hr@10_test&#39;: &#39;0.4900&#39;, &#39;mean_rank_test&#39;: &#39;22.6333&#39;, &#39;hr@10_target&#39;: &#39;0.5256&#39;, &#39;mean_rank_target&#39;: &#39;53.9278&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 10, loss: 4715.31, {&#39;hr@10_test&#39;: &#39;0.4967&#39;, &#39;mean_rank_test&#39;: &#39;22.4500&#39;, &#39;hr@10_target&#39;: &#39;0.5333&#39;, &#39;mean_rank_target&#39;: &#39;53.5989&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 11, loss: 4713.94, {&#39;hr@10_test&#39;: &#39;0.4867&#39;, &#39;mean_rank_test&#39;: &#39;22.1789&#39;, &#39;hr@10_target&#39;: &#39;0.5222&#39;, &#39;mean_rank_target&#39;: &#39;53.7167&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 12, loss: 4708.15, {&#39;hr@10_test&#39;: &#39;0.4933&#39;, &#39;mean_rank_test&#39;: &#39;21.9100&#39;, &#39;hr@10_target&#39;: &#39;0.5411&#39;, &#39;mean_rank_target&#39;: &#39;53.1800&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 13, loss: 4702.63, {&#39;hr@10_test&#39;: &#39;0.4900&#39;, &#39;mean_rank_test&#39;: &#39;21.9578&#39;, &#39;hr@10_target&#39;: &#39;0.5511&#39;, &#39;mean_rank_target&#39;: &#39;52.8089&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 14, loss: 4698.27, {&#39;hr@10_test&#39;: &#39;0.4833&#39;, &#39;mean_rank_test&#39;: &#39;22.3089&#39;, &#39;hr@10_target&#39;: &#39;0.5600&#39;, &#39;mean_rank_target&#39;: &#39;52.8556&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 15, loss: 4698.10, {&#39;hr@10_test&#39;: &#39;0.4878&#39;, &#39;mean_rank_test&#39;: &#39;22.3244&#39;, &#39;hr@10_target&#39;: &#39;0.5611&#39;, &#39;mean_rank_target&#39;: &#39;53.1522&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 16, loss: 4692.78, {&#39;hr@10_test&#39;: &#39;0.4789&#39;, &#39;mean_rank_test&#39;: &#39;22.0567&#39;, &#39;hr@10_target&#39;: &#39;0.5678&#39;, &#39;mean_rank_target&#39;: &#39;52.6367&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 17, loss: 4690.37, {&#39;hr@10_test&#39;: &#39;0.4833&#39;, &#39;mean_rank_test&#39;: &#39;22.0767&#39;, &#39;hr@10_target&#39;: &#39;0.5722&#39;, &#39;mean_rank_target&#39;: &#39;52.6200&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 18, loss: 4687.01, {&#39;hr@10_test&#39;: &#39;0.4756&#39;, &#39;mean_rank_test&#39;: &#39;22.0133&#39;, &#39;hr@10_target&#39;: &#39;0.5833&#39;, &#39;mean_rank_target&#39;: &#39;52.3489&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 19, loss: 4686.15, {&#39;hr@10_test&#39;: &#39;0.4800&#39;, &#39;mean_rank_test&#39;: &#39;21.9833&#39;, &#39;hr@10_target&#39;: &#39;0.5789&#39;, &#39;mean_rank_target&#39;: &#39;52.3822&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 20, loss: 4685.05, {&#39;hr@10_test&#39;: &#39;0.4600&#39;, &#39;mean_rank_test&#39;: &#39;22.0722&#39;, &#39;hr@10_target&#39;: &#39;0.5744&#39;, &#39;mean_rank_target&#39;: &#39;52.8856&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 21, loss: 4678.64, {&#39;hr@10_test&#39;: &#39;0.4722&#39;, &#39;mean_rank_test&#39;: &#39;22.2522&#39;, &#39;hr@10_target&#39;: &#39;0.5978&#39;, &#39;mean_rank_target&#39;: &#39;52.1289&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 22, loss: 4680.37, {&#39;hr@10_test&#39;: &#39;0.4644&#39;, &#39;mean_rank_test&#39;: &#39;21.9522&#39;, &#39;hr@10_target&#39;: &#39;0.5833&#39;, &#39;mean_rank_target&#39;: &#39;52.7811&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 23, loss: 4684.10, {&#39;hr@10_test&#39;: &#39;0.4533&#39;, &#39;mean_rank_test&#39;: &#39;22.5489&#39;, &#39;hr@10_target&#39;: &#39;0.5744&#39;, &#39;mean_rank_target&#39;: &#39;53.4444&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 24, loss: 4678.77, {&#39;hr@10_test&#39;: &#39;0.4544&#39;, &#39;mean_rank_test&#39;: &#39;22.4911&#39;, &#39;hr@10_target&#39;: &#39;0.5911&#39;, &#39;mean_rank_target&#39;: &#39;52.7556&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 25, loss: 4674.92, {&#39;hr@10_test&#39;: &#39;0.4656&#39;, &#39;mean_rank_test&#39;: &#39;22.1078&#39;, &#39;hr@10_target&#39;: &#39;0.6067&#39;, &#39;mean_rank_target&#39;: &#39;52.1922&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 26, loss: 4671.06, {&#39;hr@10_test&#39;: &#39;0.4544&#39;, &#39;mean_rank_test&#39;: &#39;22.3433&#39;, &#39;hr@10_target&#39;: &#39;0.6144&#39;, &#39;mean_rank_target&#39;: &#39;51.8344&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 27, loss: 4670.89, {&#39;hr@10_test&#39;: &#39;0.4611&#39;, &#39;mean_rank_test&#39;: &#39;22.3478&#39;, &#39;hr@10_target&#39;: &#39;0.6067&#39;, &#39;mean_rank_target&#39;: &#39;52.4033&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 28, loss: 4671.96, {&#39;hr@10_test&#39;: &#39;0.4711&#39;, &#39;mean_rank_test&#39;: &#39;22.4378&#39;, &#39;hr@10_target&#39;: &#39;0.5944&#39;, &#39;mean_rank_target&#39;: &#39;52.3622&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 29, loss: 4676.66, {&#39;hr@10_test&#39;: &#39;0.4744&#39;, &#39;mean_rank_test&#39;: &#39;22.8933&#39;, &#39;hr@10_target&#39;: &#39;0.5878&#39;, &#39;mean_rank_target&#39;: &#39;53.4356&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 30, loss: 4665.23, {&#39;hr@10_test&#39;: &#39;0.4756&#39;, &#39;mean_rank_test&#39;: &#39;22.7767&#39;, &#39;hr@10_target&#39;: &#39;0.6144&#39;, &#39;mean_rank_target&#39;: &#39;52.5100&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 31, loss: 4671.48, {&#39;hr@10_test&#39;: &#39;0.4789&#39;, &#39;mean_rank_test&#39;: &#39;22.8322&#39;, &#39;hr@10_target&#39;: &#39;0.5922&#39;, &#39;mean_rank_target&#39;: &#39;53.5267&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 32, loss: 4668.10, {&#39;hr@10_test&#39;: &#39;0.4733&#39;, &#39;mean_rank_test&#39;: &#39;23.0389&#39;, &#39;hr@10_target&#39;: &#39;0.5978&#39;, &#39;mean_rank_target&#39;: &#39;53.1744&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 33, loss: 4674.79, {&#39;hr@10_test&#39;: &#39;0.4711&#39;, &#39;mean_rank_test&#39;: &#39;22.7656&#39;, &#39;hr@10_target&#39;: &#39;0.5878&#39;, &#39;mean_rank_target&#39;: &#39;53.5956&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 34, loss: 4664.34, {&#39;hr@10_test&#39;: &#39;0.4833&#39;, &#39;mean_rank_test&#39;: &#39;22.9467&#39;, &#39;hr@10_target&#39;: &#39;0.6133&#39;, &#39;mean_rank_target&#39;: &#39;52.8800&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 35, loss: 4660.85, {&#39;hr@10_test&#39;: &#39;0.4778&#39;, &#39;mean_rank_test&#39;: &#39;22.9744&#39;, &#39;hr@10_target&#39;: &#39;0.6100&#39;, &#39;mean_rank_target&#39;: &#39;52.2956&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 36, loss: 4656.86, {&#39;hr@10_test&#39;: &#39;0.4800&#39;, &#39;mean_rank_test&#39;: &#39;23.1433&#39;, &#39;hr@10_target&#39;: &#39;0.6156&#39;, &#39;mean_rank_target&#39;: &#39;51.7744&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 37, loss: 4655.25, {&#39;hr@10_test&#39;: &#39;0.4767&#39;, &#39;mean_rank_test&#39;: &#39;23.0844&#39;, &#39;hr@10_target&#39;: &#39;0.6233&#39;, &#39;mean_rank_target&#39;: &#39;51.7989&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 38, loss: 4656.45, {&#39;hr@10_test&#39;: &#39;0.4756&#39;, &#39;mean_rank_test&#39;: &#39;23.3200&#39;, &#39;hr@10_target&#39;: &#39;0.6233&#39;, &#39;mean_rank_target&#39;: &#39;51.9067&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 39, loss: 4665.16, {&#39;hr@10_test&#39;: &#39;0.4822&#39;, &#39;mean_rank_test&#39;: &#39;23.3044&#39;, &#39;hr@10_target&#39;: &#39;0.5833&#39;, &#39;mean_rank_target&#39;: &#39;53.3367&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 40, loss: 4672.28, {&#39;hr@10_test&#39;: &#39;0.4789&#39;, &#39;mean_rank_test&#39;: &#39;23.0544&#39;, &#39;hr@10_target&#39;: &#39;0.5867&#39;, &#39;mean_rank_target&#39;: &#39;53.7956&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 41, loss: 4655.82, {&#39;hr@10_test&#39;: &#39;0.4644&#39;, &#39;mean_rank_test&#39;: &#39;23.5389&#39;, &#39;hr@10_target&#39;: &#39;0.6178&#39;, &#39;mean_rank_target&#39;: &#39;51.8500&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 42, loss: 4655.06, {&#39;hr@10_test&#39;: &#39;0.4667&#39;, &#39;mean_rank_test&#39;: &#39;22.8833&#39;, &#39;hr@10_target&#39;: &#39;0.6256&#39;, &#39;mean_rank_target&#39;: &#39;51.9378&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 43, loss: 4656.79, {&#39;hr@10_test&#39;: &#39;0.4711&#39;, &#39;mean_rank_test&#39;: &#39;22.8311&#39;, &#39;hr@10_target&#39;: &#39;0.6189&#39;, &#39;mean_rank_target&#39;: &#39;52.0311&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 44, loss: 4656.30, {&#39;hr@10_test&#39;: &#39;0.4800&#39;, &#39;mean_rank_test&#39;: &#39;22.9667&#39;, &#39;hr@10_target&#39;: &#39;0.6200&#39;, &#39;mean_rank_target&#39;: &#39;51.9478&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 45, loss: 4652.05, {&#39;hr@10_test&#39;: &#39;0.4633&#39;, &#39;mean_rank_test&#39;: &#39;23.4567&#39;, &#39;hr@10_target&#39;: &#39;0.6289&#39;, &#39;mean_rank_target&#39;: &#39;51.9589&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 46, loss: 4648.72, {&#39;hr@10_test&#39;: &#39;0.4767&#39;, &#39;mean_rank_test&#39;: &#39;23.2067&#39;, &#39;hr@10_target&#39;: &#39;0.6367&#39;, &#39;mean_rank_target&#39;: &#39;51.5056&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 47, loss: 4649.70, {&#39;hr@10_test&#39;: &#39;0.4756&#39;, &#39;mean_rank_test&#39;: &#39;23.1111&#39;, &#39;hr@10_target&#39;: &#39;0.6244&#39;, &#39;mean_rank_target&#39;: &#39;51.3422&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 48, loss: 4645.47, {&#39;hr@10_test&#39;: &#39;0.4789&#39;, &#39;mean_rank_test&#39;: &#39;23.2589&#39;, &#39;hr@10_target&#39;: &#39;0.6389&#39;, &#39;mean_rank_target&#39;: &#39;51.1978&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 49, loss: 4644.79, {&#39;hr@10_test&#39;: &#39;0.4822&#39;, &#39;mean_rank_test&#39;: &#39;23.2033&#39;, &#39;hr@10_target&#39;: &#39;0.6344&#39;, &#39;mean_rank_target&#39;: &#39;51.1700&#39;}
+----------------------------------------------------------------------------------------------------
+outer epoch: 50, loss: 4642.96, {&#39;hr@10_test&#39;: &#39;0.4733&#39;, &#39;mean_rank_test&#39;: &#39;23.3067&#39;, &#39;hr@10_target&#39;: &#39;0.6489&#39;, &#39;mean_rank_target&#39;: &#39;51.0478&#39;}
+----------------------------------------------------------------------------------------------------
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;adv_loss&#39;</span><span class="p">])</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;iteration&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;adversarial loss&quot;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;hr@10_target&#39;</span><span class="p">])</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;iteration&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;HR@10 for target item&quot;</span><span class="p">)</span>
+
+<span class="n">ax3</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">results</span><span class="p">[</span><span class="s1">&#39;hr@10_test&#39;</span><span class="p">])</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;iteration&quot;</span><span class="p">)</span>
+<span class="n">ax3</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;HR@10 for test item&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;HR@10 for test item&#39;)
+</pre></div>
+</div>
+<img alt="_images/T711285_Data_Poisoning_Attack_using_LFM_and_ItemAE_on_Synthetic_Dataset_36_1.png" src="_images/T711285_Data_Poisoning_Attack_using_LFM_and_ItemAE_on_Synthetic_Dataset_36_1.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "sparsh-ai/recsys-attacks",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="T081831_Data_Poisoning_Attacks_on_Factorization_Based_Collaborative_Filtering.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Data Poisoning Attacks on Factorization-Based Collaborative Filtering</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="T697871_Black_box_Attack_API.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Black-box Attack API</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Sparsh A.<br/>
+        
+            &copy; Copyright 2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
